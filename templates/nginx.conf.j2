@@ -24,6 +24,11 @@ http {
         {{ v }};
 {% endfor %}
 
+# Gets the basename of the current uri
+map $uri $basename {
+     ~/(?<captured_basename>[^/]*)$ $captured_basename;
+     }
+
         include {{ nginx_conf_dir }}/conf.d/*.conf;
         include {{ nginx_conf_dir }}/sites-enabled/*;
 }
