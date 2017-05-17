@@ -42,6 +42,14 @@
   notify:
    - reload nginx
 
+- name: Create configuration snippets
+  template:
+    src: config.conf.j2
+    dest: "{{ nginx_conf_dir }}/snippets/{{ item.key }}.conf"
+  with_dict: "{{ nginx_snippets }}"
+  notify:
+   - reload nginx
+
 - name: Create the configurations for independent config file for streams
   template:
     src: config_stream.conf.j2
@@ -49,4 +57,4 @@
   with_dict: "{{ nginx_stream_configs }}"
   notify:
    - reload nginx
-  when: nginx_official_repo_mainline
+  when: nginx_stream_params or nginx_stream_configs
