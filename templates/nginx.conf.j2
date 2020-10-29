@@ -31,6 +31,9 @@ http {
 {% for v in nginx_http_params %}
         {{ v }};
 {% endfor %}
+{% for v in nginx_http_params_extra %}
+	{{ v }}
+{% endfor %}
 
         include {{ nginx_conf_dir }}/conf.d/*.conf;
         include {{ nginx_conf_dir }}/sites-enabled/*;
